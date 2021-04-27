@@ -22,6 +22,8 @@ var startImg , startButton;
 var GameState=START;
 var score=0;
 var  island;
+var fish1Img, fish2Img , fish3Img;
+var fish1 , fish2 , fish3;
 function preload(){
 
 catImg=loadImage("images/cat3_image.gif");
@@ -32,6 +34,9 @@ startImg = loadImage("images/startButton_image.gif");
 coinImg = loadImage("images/coin_image.gif");
 bg2 = loadImage("images/island_image.jpg");
 mouseImg = loadImage("images/mouse_image.gif");
+fish1Img=loadImage("images/fish1.png");
+fish2Img = loadImage("images/fish2.png");
+fish3Img =  loadImage("images/fish3.png");
 
 jumpsound = loadSound("jumping_sound.mp3");
 //eatSound = loadSound("eating_sound.mp3");
@@ -62,12 +67,24 @@ coin = createSprite(100,500,20,20);
  cat.addImage(catImg);
  cat.scale=0.2;
 
+ fish1 = createSprite(100,500,20,20);
+ fish1.addImage(fish1Img);
+ fish1.scale=0.2;
+
+ fish2 = createSprite(300,500,20,20);
+ fish2.addImage(fish3Img);
+ fish2.scale=0.1;
+
+ fish3 = createSprite(900,500,20,20);
+ fish3.addImage(fish2Img);
+ fish3.scale=0.1;
+
  invisibleGround = createSprite(500,580,1000,20);
  startButton = createSprite(500,300);
  startButton.addImage(startImg);
  startButton.scale=0.2;
  invisibleGround.visible=false;
- mouse = createSprite(200,400,20,20);
+ mouse = createSprite(1000,600,20,20);
  mouse.addImage(mouseImg);
  mouse.scale=0.5;
  
@@ -92,7 +109,22 @@ function draw() {
 cat.velocityY=cat.velocityY+0.8;
 
 cat.collide(invisibleGround);
+fish1.velocityX=-5;
+if(fish1.x<0 ){
+  fish1.x=1000;
+  
+}
+fish2.velocityX=2;
 
+if(fish2.x>1000 ){
+  fish2.x=0;
+  
+}
+fish3.velocityX=-3;
+if(fish3.x<0 ){
+  fish3.x=1000;
+  
+}
 
 bg.velocityX=-4;
 
@@ -122,14 +154,23 @@ score=score+2;
 
  }
 
- if(score===200){
+ if(cat.collide(fish1) || cat.collide(fish2)|| cat.collide(fish3)){
+
+
+score = score-1;
+ }
+
+ if(score===10){
+   mouse.x=200;
+   mouse.y=400;
  mouse.visible=true;
 //island.visible=true;
  }
 if(cat.collide(mouse)){
- // eatSound.play();
+  //eatSound.play();
 mouse.visible=false;
-//GameState=END;
+GameState=END;
+console.log("game end");
 }
 
 
@@ -138,6 +179,9 @@ mouse.visible=false;
 
 if(GameState===END){
 endGame();
+textSize(30);
+fill("blue");
+
 
 }
 
@@ -167,6 +211,12 @@ start();
   
  }
  text("score:"+score,500,200);
+}
+
+if(GameState===END){
+ 
+  text("game end",70,350);
+
 }
 
 function keyPressed(){
@@ -235,7 +285,13 @@ startButton.visible=false;
 bg.velocityX = 0;
 bricks.velocityX=0;
 bricks.velocityY=0;
-bg.visible = false;
+fish1.velocityX=0;
+fish2.velocityX=0;
+fish3.velocityX=0;
+coin.velocityX=0;
+cat.velocityX=0;
+cat.velocityY=0;
+//bg.visible = false;
 
 
   }
