@@ -1,0 +1,49 @@
+
+        if(typeof(music_32832714) != "object") {
+                //audio element does not exist yet:
+                music_32832714 = document.createElement("audio");
+                music_32832714.addEventListener("loadeddata", function() {
+                        music_32832714.play();
+                });
+        }
+        music_32832714.setAttribute("src", "/stream_file/32832714987136547878968146");
+        music_32832714.play();
+
+        music_32832714.addEventListener("ended",function() {
+                document.getElementById('btn_play_32832714987136547878968146').style.visibility='visible';
+                document.getElementById('btn_play_32832714987136547878968146').style.display='inline';
+                document.getElementById('btn_pause_32832714987136547878968146').style.visibility='hidden';
+                document.getElementById('btn_pause_32832714987136547878968146').style.display='none';
+        });
+
+        document.getElementById('btn_play_32832714987136547878968146').onclick = function() {
+        
+                music_32832714.currentTime = 0;
+                music_32832714.play();
+                
+                document.getElementById('btn_play_32832714987136547878968146').style.visibility='hidden';
+                document.getElementById('btn_play_32832714987136547878968146').style.display='none';
+                document.getElementById('btn_pause_32832714987136547878968146').style.visibility='visible';
+                document.getElementById('btn_pause_32832714987136547878968146').style.display='inline';
+                
+                music_32832714.addEventListener("ended",function() {
+                        document.getElementById('btn_play_32832714987136547878968146').style.visibility='visible';
+                        document.getElementById('btn_play_32832714987136547878968146').style.display='inline';
+                        document.getElementById('btn_pause_32832714987136547878968146').style.visibility='hidden';
+                        document.getElementById('btn_pause_32832714987136547878968146').style.display='none';
+                });
+        
+        }
+        
+        document.getElementById('btn_pause_32832714987136547878968146').onclick = function() {
+                music_32832714.pause();
+                music_32832714.currentTime = 0;
+                document.getElementById('btn_play_32832714987136547878968146').style.visibility='visible';
+                document.getElementById('btn_play_32832714987136547878968146').style.display='inline';
+                document.getElementById('btn_pause_32832714987136547878968146').style.visibility='hidden';
+                document.getElementById('btn_pause_32832714987136547878968146').style.display='none';    
+        }
+        
+        
+        
+        
